@@ -2,9 +2,9 @@ import { Module , MiddlewareConsumer, RequestMethod} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { UsersModule } from '../users/users.module';
-import { ValidateUserEmailNotExistMiddleware } from '../users/middlewares/validate-user-email-not-exist/validate-user-email-not-exist.middleware';
-import { ValidatePasswordsOnRegisterMiddleware } from '../users/middlewares/validate-passwords-on-register/validate-passwords-on-register.middleware';
-import { ValidateUserEmailMiddleware } from '../users/middlewares/validate-user-email/validate-user-email.middleware';
+import { ValidateUserEmailNotExistMiddleware } from '../users/middlewares/validate-user-email-not-exist.middleware';
+import { ValidatePasswordsOnRegisterMiddleware } from '../users/middlewares/validate-passwords-on-register.middleware';
+import { ValidateUserEmailMiddleware } from '../users/middlewares/validate-user-email.middleware';
 
 @Module({
   controllers: [AuthController],

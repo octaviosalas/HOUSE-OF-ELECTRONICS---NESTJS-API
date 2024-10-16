@@ -36,23 +36,11 @@ export class Products extends Model {
     })
     declare salesPrice: number
 
-        
     @Column ({ 
         type: DataType.INTEGER
     })
     declare purchasePrice: number
-
-    @Column ({ 
-        type: DataType.STRING
-    })
-    declare rol: string
-
     
-    @Column ({ 
-        type: DataType.DATE
-    })
-    declare dischargeDate: Date
-
     @HasMany(() => Stock, { foreignKey: 'productId' }) 
     productData: Stock[]; 
 

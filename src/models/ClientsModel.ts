@@ -30,15 +30,16 @@ export class Clients extends Model {
     })
     declare dni: number
 
+    
+    @Column({ 
+        type: DataType.INTEGER
+    })
+    declare phone: number
+
     @Column({ 
         type: DataType.DATE
     })
     declare dischargeDate: Date
-
-    @Column({ 
-        type: DataType.INTEGER
-    })
-    declare totalAmount: number
 
     @HasMany(() => Sales, { foreignKey: 'clientId' }) 
     salesData: Sales[]; 

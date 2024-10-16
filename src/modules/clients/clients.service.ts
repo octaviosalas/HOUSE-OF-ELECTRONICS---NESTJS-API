@@ -1,15 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
+import { InjectModel } from '@nestjs/sequelize';
+import Clients from 'src/models/ClientsModel';
 
 @Injectable()
 export class ClientsService {
+
+  constructor(@InjectModel(Clients) private ClientModel: typeof Clients) { }
+
   create(createClientDto: CreateClientDto) {
     return 'This action adds a new client';
   }
 
-  findAll() {
-    return `This action returns all clients`;
+  async findAll() {
+    return `This action retur client`;
   }
 
   findOne(id: number) {

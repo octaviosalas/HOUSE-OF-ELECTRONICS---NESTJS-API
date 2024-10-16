@@ -26,11 +26,6 @@ export class Branch extends Model {
     declare branchStreet: String
 
 
-    @Column({ 
-        type: DataType.INTEGER
-    })
-    declare totalAmount: number
-
     @HasMany(() => Sales, { foreignKey: 'branchId' }) 
     salesData: Sales[]; 
 
