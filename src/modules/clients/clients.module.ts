@@ -5,11 +5,12 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import Clients from 'src/models/ClientsModel';
 import { ValidateClientIsNewMiddleware } from './middlewares/validate-client-is-new.middleware';
 import { ValidateClientExist } from './middlewares/validate-client-exist.middleware';
+import { SalesModule } from '../sales/sales.module';
 
 @Module({
   controllers: [ClientsController],
   providers: [ClientsService],
-  imports: [SequelizeModule.forFeature([Clients])],
+  imports: [SequelizeModule.forFeature([Clients]), SalesModule], //importo modulo para usar sus exportaciones (modelo en este caso)
   exports: [ClientsModule]
 })
 export class ClientsModule {
@@ -24,6 +25,7 @@ export class ClientsModule {
           {path:"/clients/getOneClient/:clientId",  method: RequestMethod.GET},
           {path:"/clients/updateClientData/:clientId",  method: RequestMethod.GET},
           {path:"/clients/deleteClient/:clientId",  method: RequestMethod.GET},
+          {path:"/clients/getClientsSales/:clientId",  method: RequestMethod.GET},
         )  
      
    }

@@ -9,10 +9,9 @@ export class AuthGuard implements CanActivate {
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     
-    console.log("Pasando por el GUARD ❤️ authGuard ❤️")
-
     const request = context.switchToHttp().getRequest()
     const token = request.headers["usertokenvalidation"]
+    console.log("Pasando por el GUARD ❤️ authGuard ❤️", request.headers["usertokenvalidation"])
 
     const tokenResponseData = validateTokenData(token)
 

@@ -26,9 +26,16 @@ export class SalesController {
     return this.salesService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.salesService.findOne(+id);
+  @Get('/oneSaleData/:saleId')
+  @UseGuards(AuthGuard)
+  findOne(@Param('saleId', ParseIntPipe) saleId: number) {
+    return this.salesService.findOne(saleId);
+  }
+
+  @Get('/salesByBranch/:branchId')
+  @UseGuards(AuthGuard)
+  findSalesByBranch(@Param('branchId', ParseIntPipe) branchId: number) {
+    return this.salesService.findSalesByBranch(branchId);
   }
 
   @Patch(':id')

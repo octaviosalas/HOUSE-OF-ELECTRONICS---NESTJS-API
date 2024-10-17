@@ -12,7 +12,7 @@ export class BranchController {
     return this.branchService.create(createBranchDto);
   }
 
-  @Get()
+  @Get("/branchData/:branchId")
   findAll() {
     return this.branchService.findAll();
   }

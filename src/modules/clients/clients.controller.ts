@@ -13,7 +13,7 @@ export class ClientsController {
   
   @Post("/createClient")
   @UseGuards(AuthGuard, UserRolGuard)
-  @Roles("Empleado")
+  @Roles("Empleado", "Encargado")
   create(@Body() createClientDto: CreateClientDto) {
     return this.clientsService.create(createClientDto);
   }
@@ -23,7 +23,6 @@ export class ClientsController {
   findAll() {
     return this.clientsService.findAll();
   }
-
 
   @Get('/getOneClient/:clientId')
   @UseGuards(AuthGuard)
@@ -39,5 +38,11 @@ export class ClientsController {
   @Delete('/deleteClient/:clientId')
   remove(@Param('clientId', ParseIntPipe) clientId: number) {
     return this.clientsService.remove(clientId);
+  }
+
+  @Get("/getClientsSales/:clientId")
+  @UseGuards(AuthGuard)
+  getClientsEverySales(@Param("clientId", ParseIntPipe) clientId: number) { 
+    return this.clientsService.clientsSalesData(clientId)
   }
 }

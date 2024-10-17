@@ -11,7 +11,9 @@ import Branch from 'src/models/BranchModel';
 @Injectable()
 export class ClientsService {
 
-  constructor(@InjectModel(Clients) private ClientModel: typeof Clients) { }
+  constructor(@InjectModel(Clients) private ClientModel: typeof Clients,
+              @InjectModel(Sales) private SalesModel: typeof Sales,
+              @InjectModel(SalesDetail) private SalesDetailModel: typeof SalesDetail) { }
 
   async create(createClientDto: CreateClientDto) {
     
@@ -40,7 +42,7 @@ export class ClientsService {
        const clientsData = await this.ClientModel.findAll({
         attributes: ['name', 'email', "id", "phone", "dischargeDate", "dni"],
         include: [{ 
-           model: Sales,
+           model: this.SalesModel,
            as: "salesData"
         }]
        })
@@ -56,7 +58,7 @@ export class ClientsService {
         attributes: {exclude: ["createdAt", "updatedAt"] },
         include: [
             { 
-            model: Sales,
+            model: this.SalesModel,
             as: "salesData",
             attributes: {
               exclude: ["createdAt", "updatedAt"]  
@@ -64,7 +66,7 @@ export class ClientsService {
             //limit: 1,
             include: [
               { 
-              model: SalesDetail,
+              model: this.SalesDetailModel,
               as: "saleData",
               attributes: {
                 exclude: ["createdAt", "updatedAt"]  
@@ -101,4 +103,34 @@ export class ClientsService {
   remove(clientId: number) {
     return `This action removes a #${clientId} client`;
   }
+
+  async clientsSalesData (clientId: number) {
+    try {
+       const clientsSales = await this.SalesModel.findAll({ 
+        where: { 
+          clientId: clientId,
+        },
+        attributes: { exclude: ["createdAt", "updatedAt"]  },
+        include: [
+          { 
+          "model": this.SalesDetailModel,
+          "as": "saleData",
+          attributes: { exclude: ["createdAt", "updatedAt"]  },
+          include: [ 
+             { 
+              "model": Products,
+              "as": "productData",
+              attributes: { exclude: ["createdAt", "updatedAt"]  },
+             }
+          ]
+          }      
+      ]
+       })
+       return clientsSales
+    } catch (error) {
+      
+    }
+  } 
+
+
 }
