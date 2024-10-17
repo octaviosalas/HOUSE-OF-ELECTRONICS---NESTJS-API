@@ -3,8 +3,6 @@ import { Observable } from 'rxjs';
 import { validateTokenData } from 'src/utils/ValidateTokenData';
 import { Reflector } from '@nestjs/core';
 
-//constructor(private reflector: Reflector) {}
-// const roles = this.reflector.get<string[]>("roles", context.getHandler())
 
 @Injectable()
 export class UserRolGuard implements CanActivate {

@@ -28,7 +28,7 @@ export class SalesDetail extends Model {
         type: DataType.INTEGER,
         allowNull: false,
     })
-    declare poductId: number
+    declare productId: number
     @BelongsTo(() => Products)
     productData: Products
 

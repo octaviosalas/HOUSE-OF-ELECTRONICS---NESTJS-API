@@ -29,7 +29,6 @@ export class Clients extends Model {
         type: DataType.INTEGER
     })
     declare dni: number
-
     
     @Column({ 
         type: DataType.INTEGER
