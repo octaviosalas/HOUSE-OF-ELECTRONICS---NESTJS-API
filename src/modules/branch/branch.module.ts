@@ -8,7 +8,8 @@ import { ValidateBranchExistenseMiddleware } from './middlewares/validate-branch
 @Module({
   controllers: [BranchController],
   providers: [BranchService],
-  imports: [SequelizeModule.forFeature([Branch])]
+  imports: [SequelizeModule.forFeature([Branch])],
+  exports:[BranchModule]
 })
 export class BranchModule {
   configure(consumer: MiddlewareConsumer) { 

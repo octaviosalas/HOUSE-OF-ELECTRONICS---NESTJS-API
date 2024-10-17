@@ -1,20 +1,23 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, ParseIntPipe } from '@nestjs/common';
 import { PurchasesService } from './purchases.service';
 import { CreatePurchaseDto } from './dto/create-purchase.dto';
 import { UpdatePurchaseDto } from './dto/update-purchase.dto';
+import { AuthGuard } from '../auth/Guard/auth.guard';
 
 @Controller('purchases')
 export class PurchasesController {
   constructor(private readonly purchasesService: PurchasesService) {}
 
-  @Post()
-  create(@Body() createPurchaseDto: CreatePurchaseDto) {
-    return this.purchasesService.create(createPurchaseDto);
+  @Post("/createPurchase/:branchId")
+  @UseGuards(AuthGuard)
+  create(@Body() createPurchaseDto: CreatePurchaseDto, @Param("branchId", ParseIntPipe) branchId: number) {
+    return this.purchasesService.create(createPurchaseDto, branchId);
   }
 
-  @Get()
-  findAll() {
-    return this.purchasesService.findAll();
+  @Get("/branchPurchases/:branchId")
+  @UseGuards(AuthGuard)
+  findAll(@Param("branchId", ParseIntPipe) branchId: number) {
+    return this.purchasesService.branchHistoricPurchases(branchId);
   }
 
   @Get(':id')

@@ -11,7 +11,7 @@ import { SalesModule } from '../sales/sales.module';
   controllers: [ClientsController],
   providers: [ClientsService],
   imports: [SequelizeModule.forFeature([Clients]), SalesModule], //importo modulo para usar sus exportaciones (modelo en este caso)
-  exports: [ClientsModule]
+  exports: [SequelizeModule]
 })
 export class ClientsModule {
   configure(consumer: MiddlewareConsumer) { 
