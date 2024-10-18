@@ -59,6 +59,26 @@ export class SalesService {
     return `This action returns all sales`;
   }
 
+  
+  async userSales(userId: number) {
+    try {
+      const userSales = await this.SalesModel.findAll({ 
+        where: { 
+          userId: userId
+        },
+        include: [
+          { 
+          "model": this.SalesDetailModel,
+          "as": "saleData"
+         },
+      ]
+      })
+      return userSales
+    } catch (error) {
+      
+    }
+  }
+
   async findOne(saleId: number) {
       try {
         const saleData = await this.SalesModel.findByPk(saleId, { 

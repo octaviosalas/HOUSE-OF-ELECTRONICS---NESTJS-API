@@ -20,9 +20,9 @@ export class PurchasesController {
     return this.purchasesService.branchHistoricPurchases(branchId);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.purchasesService.findOne(+id);
+  @Get('/onePurchaseData/:purchaseId')
+  findOne(@Param('purchaseId', ParseIntPipe) purchaseId: number) {
+    return this.purchasesService.findOne(purchaseId);
   }
 
   @Patch(':id')

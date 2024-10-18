@@ -9,6 +9,7 @@ import { SalesModule } from '../sales/sales.module';
 import Purchases from 'src/models/PurchasesModel';
 import PurchasesDetail from 'src/models/PurchasesDetail';
 import Products from 'src/models/ProductsModel';
+import { ValidatePurchaseExistenseMiddleware } from './middlewares/validate-purchase-existense.middleware';
 
 @Module({
   controllers: [PurchasesController],
@@ -26,6 +27,10 @@ export class PurchasesModule {
       .apply(ValidateBranchExistenseMiddleware)
         .forRoutes(
           {path:"/purchases/branchPurchases/:branchId",  method: RequestMethod.GET},       
+        )  
+        .apply(ValidatePurchaseExistenseMiddleware)
+      .forRoutes(
+          {path:"/purchases/onePurchaseData/:purchaseId",  method: RequestMethod.GET},       
         )  
    }
 }

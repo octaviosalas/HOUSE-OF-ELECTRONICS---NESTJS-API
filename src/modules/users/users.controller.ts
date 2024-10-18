@@ -22,12 +22,10 @@ export class UsersController {
   }
 
 
-
   @Get('/oneUserData/:userId')
   findOne(@Param('userId', ParseIntPipe) userId: number) {
     return this.usersService.findOne(userId);
   }
-
 
 
   @Patch('/updateUserData/:userId')
@@ -40,7 +38,6 @@ export class UsersController {
     const userDataId = req.userId
     return this.usersService.update(userId, Number(userDataId), updateUserDto);
   }
-
 
 
   @Patch('/changeUserRol/:userId')
@@ -57,6 +54,8 @@ export class UsersController {
   remove(@Param('userId', ParseIntPipe) userId: number) {
     return this.usersService.remove(userId);
   }
+
+
 
 
 

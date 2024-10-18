@@ -26,6 +26,15 @@ export class SalesController {
     return this.salesService.findAll();
   }
 
+  @Get("/userSales/:userId")
+  @UseGuards(AuthGuard)
+  userSales(@Param("userId", ParseIntPipe) userId: number) {
+    return this.salesService.userSales(userId);
+  }
+
+
+
+
   @Get('/oneSaleData/:saleId')
   @UseGuards(AuthGuard)
   findOne(@Param('saleId', ParseIntPipe) saleId: number) {

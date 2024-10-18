@@ -39,6 +39,10 @@ export class SalesModule {
         .forRoutes(
           {path:"/sales/salesByBranch/:branchId",  method: RequestMethod.GET},
         )  
+        .apply(ValidateUserExistenseMiddleware)
+        .forRoutes(
+          {path:"/sales/userSales/:userId",  method: RequestMethod.GET},
+        )  
      
    }
 }

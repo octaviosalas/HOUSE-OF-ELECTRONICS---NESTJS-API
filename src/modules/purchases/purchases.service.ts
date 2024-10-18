@@ -72,8 +72,8 @@ export class PurchasesService {
     }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} purchase`;
+  findOne(purchaseId: number) {
+    return `This action returns a #${purchaseId} purchase`;
   }
 
   update(id: number, updatePurchaseDto: UpdatePurchaseDto) {

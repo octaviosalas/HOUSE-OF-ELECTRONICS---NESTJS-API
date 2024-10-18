@@ -3,6 +3,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import Users from 'src/models/UsersModel';
 import { ChangeRolDto } from './dto/change-rol.dto';
+import Sales from 'src/models/SalesModel';
 
 @Injectable()
 export class UsersService {
@@ -20,6 +21,8 @@ export class UsersService {
          })
       }
   } 
+
+  
 
   async findOne(userId: number) {
     try {
