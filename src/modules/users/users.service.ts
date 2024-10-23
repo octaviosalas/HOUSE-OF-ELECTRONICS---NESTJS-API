@@ -25,14 +25,13 @@ export class UsersService {
   
 
   async findOne(userId: number) {
+    console.log("toy!")
     try {
       const userData = await this.UserModel.findByPk(userId)
       return userData
    } catch (error) {
-      throw new BadRequestException({ 
-       message: "Ocurrio un error en la obtencion de todos los usuarios",
-       error: error
-      })
+       console.log("toy!dsd")
+      throw new Error("No encontrado")
    }
   }
 

@@ -24,7 +24,16 @@ export class UsersController {
 
   @Get('/oneUserData/:userId')
   findOne(@Param('userId', ParseIntPipe) userId: number) {
-    return this.usersService.findOne(userId);
+    console.log("Intento..")
+    try {
+      console.log("Intento de resolucion!")
+      const response =  this.usersService.findOne(userId);
+      return response
+    } catch (error) {
+       console.log("FALLA Intento de resolucion!")
+       console.log("Ups! Error")
+    }
+
   }
 
 
