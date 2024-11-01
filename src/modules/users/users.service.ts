@@ -1,4 +1,4 @@
-import { BadRequestException, HttpCode, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, Injectable, HttpStatus } from '@nestjs/common';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import Users from 'src/models/UsersModel';
@@ -25,14 +25,13 @@ export class UsersService {
   
 
   async findOne(userId: number) {
-    console.log("toy!")
-    try {
+
       const userData = await this.UserModel.findByPk(userId)
+      if(!userData) { 
+        throw new HttpException('Usuario no encontrado', HttpStatus.NOT_FOUND); //    throw new HttpException('Usuario no encontrado', 400);
+      }
       return userData
-   } catch (error) {
-       console.log("toy!dsd")
-      throw new Error("No encontrado")
-   }
+
   }
 
   async updateUserRol(userId: number, ChangeRolDto: ChangeRolDto) {

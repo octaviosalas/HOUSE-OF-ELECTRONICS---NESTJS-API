@@ -1,4 +1,4 @@
-import { Controller, Get, Request, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Request, Body, Patch, Param, Delete, ParseIntPipe, HttpException } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UseGuards } from '@nestjs/common';
@@ -12,8 +12,6 @@ import { UserIdGuard } from '../auth/Guard/user-id.guard';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-
-
   @Get("/everyUsers")
   @UseGuards(AuthGuard, UserRolGuard) 
   @Roles("Dueño")
@@ -21,21 +19,20 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-
+  
   @Get('/oneUserData/:userId')
-  findOne(@Param('userId', ParseIntPipe) userId: number) {
-    console.log("Intento..")
+  async findOne(@Param('userId', ParseIntPipe) userId: number) {
     try {
-      console.log("Intento de resolucion!")
-      const response =  this.usersService.findOne(userId);
+      const response =  await this.usersService.findOne(userId);
       return response
     } catch (error) {
-       console.log("FALLA Intento de resolucion!")
-       console.log("Ups! Error")
+      /* if(error instanceof HttpException) { 
+        console.log("Asi, puedo ir gestionando desde mi captura de errores, los diferentes errores posibles")
+      }*/
+      throw error;
     }
-
   }
-
+  
 
   @Patch('/updateUserData/:userId')
   @UseGuards(UserIdGuard)
