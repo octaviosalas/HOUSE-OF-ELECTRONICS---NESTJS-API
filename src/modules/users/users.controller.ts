@@ -24,7 +24,6 @@ export class UsersController {
 
   @Get('/oneUserData/:userId')
   findOne(@Param('userId', ParseIntPipe) userId: number) {
-    console.log("Intento..")
     try {
       console.log("Intento de resolucion!")
       const response =  this.usersService.findOne(userId);

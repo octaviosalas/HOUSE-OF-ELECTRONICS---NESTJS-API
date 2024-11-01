@@ -25,12 +25,10 @@ export class UsersService {
   
 
   async findOne(userId: number) {
-    console.log("toy!")
     try {
       const userData = await this.UserModel.findByPk(userId)
       return userData
    } catch (error) {
-       console.log("toy!dsd")
       throw new Error("No encontrado")
    }
   }
