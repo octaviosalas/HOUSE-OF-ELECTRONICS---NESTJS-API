@@ -25,13 +25,15 @@ export class UsersService {
   
 
   async findOne(userId: number) {
-
+    try {
       const userData = await this.UserModel.findByPk(userId)
       if(!userData) { 
         throw new HttpException('Usuario no encontrado', HttpStatus.NOT_FOUND); //    throw new HttpException('Usuario no encontrado', 400);
       }
       return userData
-
+   } catch (error) {
+      throw new Error("No encontrado")
+   }
   }
 
   async updateUserRol(userId: number, ChangeRolDto: ChangeRolDto) {

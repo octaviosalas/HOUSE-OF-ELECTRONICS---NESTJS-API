@@ -21,9 +21,10 @@ export class UsersController {
 
   
   @Get('/oneUserData/:userId')
-  async findOne(@Param('userId', ParseIntPipe) userId: number) {
+  findOne(@Param('userId', ParseIntPipe) userId: number) {
     try {
-      const response =  await this.usersService.findOne(userId);
+      console.log("Intento de resolucion!")
+      const response =  this.usersService.findOne(userId);
       return response
     } catch (error) {
       /* if(error instanceof HttpException) { 
