@@ -27,9 +27,7 @@ export class UsersController {
       const response =  this.usersService.findOne(userId);
       return response
     } catch (error) {
-      /* if(error instanceof HttpException) { 
-        console.log("Asi, puedo ir gestionando desde mi captura de errores, los diferentes errores posibles")
-      }*/
+      console.log("cc!", error.message)
       throw error;
     }
   }

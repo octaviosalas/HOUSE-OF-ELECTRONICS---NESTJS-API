@@ -28,11 +28,12 @@ export class UsersService {
     try {
       const userData = await this.UserModel.findByPk(userId)
       if(!userData) { 
-        throw new HttpException('Usuario no encontrado', HttpStatus.NOT_FOUND); //    throw new HttpException('Usuario no encontrado', 400);
+        throw new HttpException('Usuario no encontrado', HttpStatus.NOT_FOUND);
       }
       return userData
    } catch (error) {
-      throw new Error("No encontrado")
+    console.log("servicio!", error.message)
+      throw error
    }
   }
 

@@ -26,7 +26,6 @@ export class UsersModule {
     consumer
       .apply(ValidateUserExistenseMiddleware)
         .forRoutes(
-    
           {path:"/users/changeUserRol/:userId",  method: RequestMethod.PATCH},
           {path:"/users/deleteUser/:userId",  method: RequestMethod.DELETE},
           {path:"/users/updateUserData/:userId",  method: RequestMethod.PATCH},

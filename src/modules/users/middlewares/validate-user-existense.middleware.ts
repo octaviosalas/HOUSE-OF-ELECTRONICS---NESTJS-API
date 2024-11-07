@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NestMiddleware } from '@nestjs/common';
+import { HttpException, Injectable,HttpStatus, NestMiddleware } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Response, Request } from 'express';
 import Users from 'src/models/UsersModel';
@@ -15,7 +15,7 @@ export class ValidateUserExistenseMiddleware implements NestMiddleware {
     const {userId} = req.params
     const userData = await this.UserModel.findByPk(userId)
     if(!userData) { 
-      throw new BadRequestException("No existe el usuario que estas intentando buscar")
+      throw new HttpException('Usuario no encontrado', HttpStatus.NOT_FOUND);
     }
 
     next();
