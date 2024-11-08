@@ -22,7 +22,6 @@ export class UsersService {
       }
   } 
 
-  
 
   async findOne(userId: number) {
     try {

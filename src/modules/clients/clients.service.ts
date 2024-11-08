@@ -63,7 +63,6 @@ export class ClientsService {
             attributes: {
               exclude: ["createdAt", "updatedAt"]  
             },
-            //limit: 1,
             include: [
               { 
               model: this.SalesDetailModel,

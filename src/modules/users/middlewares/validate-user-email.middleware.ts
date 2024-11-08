@@ -11,6 +11,11 @@ export class ValidateUserEmailMiddleware implements NestMiddleware {
   async use(req: Request, res: Response, next: () => void) {
     console.log("❤️❤️❤️❤️ MIDDLEWARE DETECTED: ValidateUserEmailMiddleware ❤️❤️❤️❤️")
      
+
+    if(req.body.email.length <= 5) { 
+      throw new BadRequestException("Correo electronico invalido")
+    }
+
     const user = await this.UserModel.findOne({ 
       where: { 
         email: req.body.email

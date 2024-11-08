@@ -5,7 +5,7 @@ import { BadRequestException } from "@nestjs/common";
 export const validateTokenData = (token: string) => { 
 
    if(!token) { 
-       throw new BadRequestException("No has ingresado el token")
+       throw new BadRequestException("Debes iniciar sesion")
    }
 
     const decode = jwt.decode(token) as TokenResultType

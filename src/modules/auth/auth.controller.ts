@@ -10,13 +10,21 @@ import { RegisterUserDto } from './dto/register-user.dto';
   constructor(private readonly authService: AuthService) {}
 
   @Post("/registerNewUserAccount")
-  registerUser(@Body() RegisterUserDto: RegisterUserDto) {
-    return this.authService.register(RegisterUserDto);
+  async registerUser(@Body() RegisterUserDto: RegisterUserDto) {
+    try {
+      return await this.authService.register(RegisterUserDto);
+    } catch (error) {
+      throw error
+    }
   }
 
   @Post("/userLogginAccount")
-  create(@Body() createAuthDto: CreateAuthDto) {
-    return this.authService.logginAccount(createAuthDto);
+  async create(@Body() createAuthDto: CreateAuthDto) {
+    try {
+      return this.authService.logginAccount(createAuthDto);
+    } catch (error) {
+      throw error
+    }
   }
  
 }

@@ -13,7 +13,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get("/everyUsers")
-  @UseGuards(AuthGuard, UserRolGuard) 
+  //@UseGuards(AuthGuard, UserRolGuard) 
   @Roles("Dueño")
   findAll() {
     return this.usersService.findAll();

@@ -1,24 +1,58 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import Products from 'src/models/ProductsModel';
+import Stock from 'src/models/StockMode';
+import Branch from 'src/models/BranchModel';
 
 @Injectable()
 export class ProductsService {
 
-  constructor(@InjectModel(Products) private ProductModel: typeof Products) {}
+  constructor(@InjectModel(Products) private ProductModel: typeof Products,
+              @InjectModel(Stock) private StockModel: typeof Stock,
+              @InjectModel(Branch) private BranchModel: typeof Branch) {}
 
   async create(createProductDto: CreateProductDto) {
    return "hola"
   }
 
-  findAll() {
-    return `This action returns all products`;
+  async findAll() {
+    try {
+       const productsData = await this.ProductModel.findAll()
+       return productsData
+    } catch (error) {
+       throw new BadRequestException("Ocurrio un error")
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  async findOne(productId: number) {
+    try {
+       const productData = await this.ProductModel.findByPk(productId)
+       return productData     
+    } catch (error) {
+       throw new BadRequestException(error)
+    }
+  }
+
+  async getProductsBranchStock(productId: number) {
+    try {
+       const productStockData = await this.StockModel.findAll({ 
+        where: { 
+          productId: productId,
+        },
+        attributes: { exclude: ["createdAt", "updatedAt"]  },
+        include: [{ 
+          model: this.BranchModel,
+          as: "branchData",
+          attributes: { exclude: ["createdAt", "updatedAt"]  },
+         }]
+       })
+       return productStockData     
+    } catch (error) {
+       throw new BadRequestException(error)
+    }
+ 
   }
 
   update(id: number, updateProductDto: UpdateProductDto) {

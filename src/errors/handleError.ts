@@ -1,4 +1,4 @@
-import { ExceptionFilter, Catch, ArgumentsHost, HttpException } from '@nestjs/common';
+import { ExceptionFilter, Catch, ArgumentsHost, HttpException, BadRequestException } from '@nestjs/common';
 import { Request, Response } from 'express';
 
 
@@ -15,14 +15,32 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const request = ctx.getRequest<Request>();
     const status = exception.getStatus();
 
-    const errorResponse = {
-      statusCode: status,
-      timestamp: new Date().toISOString(),
-      path: request.url,
-      message: exception.message,
-    };
+    console.log("👇", exception.message)
 
+    let errorResponse;
+    if(exception instanceof BadRequestException) { 
+        console.log("RESPONDO!", exception.getResponse()["message"])
+        errorResponse = {
+        statusCode: status,
+        timestamp: new Date().toISOString(),
+        path: request.url,
+        message: exception.getResponse()["message"],
+      };
+
+    } else { 
+      console.log("RESPONDO ACA!")
+        errorResponse = {
+        statusCode: status,
+        timestamp: new Date().toISOString(),
+        path: request.url,
+        message: exception.message,
+      };
+      
+    }
+    
     response.status(status).json(errorResponse);
+    
+
   }
 }
 

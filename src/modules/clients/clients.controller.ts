@@ -20,8 +20,14 @@ export class ClientsController {
 
   @Get("/allClientsData")
   @UseGuards(AuthGuard)
-  findAll() {
-    return this.clientsService.findAll();
+   async findAll() {
+    try {
+      return await this.clientsService.findAll();      
+    } catch (error) {
+      console.log("👍upii")
+       throw error
+    }
+
   }
 
   @Get('/getOneClient/:clientId')

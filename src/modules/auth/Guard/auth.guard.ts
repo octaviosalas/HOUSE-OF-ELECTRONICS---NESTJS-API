@@ -13,11 +13,13 @@ export class AuthGuard implements CanActivate {
     const token = request.headers["usertokenvalidation"]
     console.log("Pasando por el GUARD ❤️ authGuard ❤️", request.headers["usertokenvalidation"])
 
-    const tokenResponseData = validateTokenData(token)
 
-    if(!token) { 
-      throw new BadRequestException("No enviaste el token")
+    if(request.headers["usertokenvalidation"] == null) { 
+      console.log("🛩️😍❤️😒⚡👍😊🤣😂👇")
+      throw new BadRequestException("Debes iniciar sesion")
     }
+
+    const tokenResponseData = validateTokenData(token)
 
     if(typeof tokenResponseData === "string") { 
       throw new BadRequestException("El token es invalido")
